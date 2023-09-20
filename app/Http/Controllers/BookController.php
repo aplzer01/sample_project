@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\Book;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class BookController extends Controller
 {
@@ -85,11 +87,46 @@ class BookController extends Controller
         return redirect()->route('book.index');
     }
 
-    //CSVダウンロード
-    public function downloadCsv()
+    //CSVインポート
+    public function upload(Request $request)
     {
+        $book = new Book();
+        // CSVファイルが存在するかの確認
+        if ($request->hasFile('csvFile')) {
+            //ファイルの保存
+            $newCsvFileName = $request->csvFile->getClientOriginalName();
+            $request->csvFile->storeAs('public/csv', $newCsvFileName);
+        } else {
+            throw new Exception('CSVファイルの取得に失敗しました。');
+        }
+        //保存したCSVファイルの取得
+        $csv = Storage::disk('local')->get("public/csv/{$newCsvFileName}");
+        // OS間やファイルで違う改行コードをexplode統一
+        $csv = str_replace(array("\r\n", "\r"), "\n", $csv);
+        // $csvを元に行単位のコレクション作成。explodeで改行ごとに分解
+        $uploadedData = collect(explode("\n", $csv));
+
+        $header = collect($book->csvHeader());
+        $cnt=count($uploadedData);
+        for ($i=1; $i < $cnt; $i++) {
+        $insertData = explode(",",$uploadedData[$i]);
+        
+        DB::table('books')->insert([
+            ['book_id' => $insertData[0],
+            'book_name' => $insertData[1],
+            'book_author' => $insertData[2],
+            'book_text' => $insertData[3]]
+        ]);
+        }
+        return view('book.done');
+    }
+
+    //CSVダウンロード
+     public function download()
+    {   
+        $fileName = 'books.csv';
         $books = Book::all();
-        $stream = fopen('C:\xampp\htdocs\sample_project\work\book.csv', 'w');   //ストリームを書き込みモードで開く
+        $stream = fopen($fileName, 'c');   //ストリームを書き込みモードで開く
         $arr = array('book_id', 'book_name', 'book_author', 'book_text');           //CSVファイルのカラム（列）名の指定
         
         fputcsv($stream, $arr);               //1行目にカラム（列）名のみを書き込む（繰り返し処理には入れない）
@@ -103,18 +140,8 @@ class BookController extends Controller
             
             fputcsv($stream, $arrInfo);       //DBの値を繰り返し書き込む
         }
-        
         rewind($stream);                      //ファイルポインタを先頭に戻す
-        $csv = stream_get_contents($stream);  //ストリームを変数に格納
-        $csv = mb_convert_encoding($csv, 'sjis-win', 'UTF-8');   //文字コードを変換
-        
         fclose($stream);                      //ストリームを閉じる
-        
-        $headers = array(                     //ヘッダー情報を指定する
-            'Content-Type' => 'text/csv',
-            'Content-Disposition' => 'attachment; filename=test.csv'
-        );
-        ddd($csv);
-        return Response::make($csv, 200, $headers);   //ファイルをダウンロードする
+        return response()->download($fileName);
     }
 }

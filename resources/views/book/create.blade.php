@@ -11,7 +11,7 @@
         本を登録
       </div>
       @if ($errors->any())
-        <div class="alert alert-danger">
+        <div>
           <ul>
             @foreach ($errors->all() as $error)
                 <li>{{ $error }}</li>
@@ -36,10 +36,11 @@
               <td><textarea type="text" class="form-text" name="book_text" id="book_text"></textarea></td>
             </tr>
           </table>
-          <button type="submit">登録</button>
+          <button type="submit" class="btn01">登録</button>
         </fieldset>
       </form>
-      <a href="{{ route('book.index') }}" role="button">一覧画面へ</a>
+      <br>
+      <a href="{{ route('book.index') }}" role="button" class="btn02">TOPへ</a>
     </div>
   </body>
 </html>

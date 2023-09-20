@@ -8,21 +8,37 @@
     <script type="text/javascript" src="{{ asset('/js/app.js')}}"></script>
   </head>
   <body>
-  <div class="title">
-      一覧
-  </div>
-  <a href="{{ route('book.create') }}">本の登録へ</a>
-    <a href="{{ route('book.downloadCsv') }}">CSVダウンロード</a>
-    <!-- 検索機能 -->
-    <div>
-      <form action="{{ route('book.search') }}" method="GET">
-      @csrf
-        <input type="text" name="keyword" placeholder="本のタイトル、作者">
-        <input type="submit" value="検索">
-      </form>
+  
+<div class="title">トップページ</div>  
+<hr>
+  <table>
+  <tr>
+    <th>
+      <!-- 登録画面へ -->
+      <a href="{{ route('book.create') }}" class="btn02">本の登録</a>
+    </th>
+    <th><a href="{{ route('book.download') }}" class="btn02">CSVダウンロード</a></th>
+  </tr>
+  </table>
+  <!-- 検索機能 -->
+  <hr>
+  <div class="sub-title">
+      本を検索する
     </div>
-
-    <table class="index-table">
+  <div class="search">     
+       <form action="{{ route('book.search') }}" method="GET">
+        @csrf        
+        <input type="text" name="keyword" placeholder="本のタイトル、作者">
+        <input type="submit" value="検索" class="btn01">
+        </form>
+</div>
+<hr>
+   <!-- 一覧表 -->  
+   <div class="sub-title">
+      登録されている本の一覧
+    </div>
+   <div>
+    <table border="1">
       <thead>
         <tr>
           <th>No.</th>
@@ -40,7 +56,13 @@
           <td>{{ $book->book_id }}</td>
           <td>{{ $book->book_name }}</td>
           <td>{{ $book->book_author }}</td>
-          <td>{{ $book->created_at->format('Y/m/d') }}</td>
+          <td>
+            @if($book->created_at)
+              {{$book->created_at->format('Y/m/d') }}
+            @else
+              {{null}}
+            @endif
+          </td>
           <td><a href="{{ route('book.detail', ['book_id'=>$book->book_id]) }}" class="btn01">詳細</a></td>
           <td><a href="{{ route('book.edit', ['book_id'=>$book->book_id]) }}" class="btn01">編集</a></td>
           <td>
@@ -53,5 +75,19 @@
         @endforeach
       </tbody>
     </table>
+    </div>
+    <hr>
+
+    <!-- インポート -->
+    <div class="sub-title">
+      csvインポート
+    </div>
+    <div class="upload">
+      <form method="post" action="{{ route('book.upload') }}" enctype="multipart/form-data">
+        @csrf
+        <input type="file" name="csvFile"  id="csvFile"/>
+        <input type="submit"></input>
+      </form>
+    </div>
   </body>
 </html>

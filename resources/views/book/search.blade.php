@@ -7,8 +7,9 @@
     <link rel="stylesheet" href="{{ asset('/css/style.css')}}" >
   </head>
   <body>
-    <h2>検索結果</h2>
-    <table>
+  <div class="title">検索結果</div>  
+
+    <table border="1">
       <thead>
         <tr>
           <th>No.</th>
@@ -27,17 +28,19 @@
           <td>{{ $book->book_name }}</td>
           <td>{{ $book->book_author }}</td>
           <td>{{ $book->created_at }}</td>
-          <td><a href="{{ route('book.detail', ['book_id'=>$book->book_id]) }}">詳細</a></td>
-          <td><a href="{{ route('book.edit', ['book_id'=>$book->book_id]) }}">編集</a></td>
+          <td><a href="{{ route('book.detail', ['book_id'=>$book->book_id]) }}" class="btn01">詳細</a></td>
+          <td><a href="{{ route('book.edit', ['book_id'=>$book->book_id]) }}" class="btn01">編集</a></td>
           <td>
             <form action="{{ route('book.delete', ['book_id'=>$book->book_id]) }}" method="POST">
                 @csrf
-                <button type="submit" onClick="delete_alert(event);return false;">削除</button>
+                <button type="submit" onClick="delete_alert(event);return false;" class="btn01">削除</button>
             </form>
           </td>
         </tr>
         @endforeach
       </tbody>
     </table>
+    <br>
+      <a href="{{ route('book.index') }}" role="button" class="btn02">TOPへ</a>
   </body>
 </html>

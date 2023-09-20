@@ -10,7 +10,7 @@
       <div class="title">
           登録情報詳細
       </div>
-      <table class="table_detail">
+      <table border="1">
         <tr>
          <th>No.</th>
          <td>{{ $book->book_id }}</td>
@@ -31,5 +31,7 @@
               <td>{{ $book->book_text }}</td>
             </tr>
        </table>
+       <br>
+      <a href="{{ route('book.index') }}" role="button" class="btn02">TOPへ</a>
   </body>
 </html>

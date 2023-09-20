@@ -6,8 +6,8 @@
     <link rel="stylesheet" href="{{ asset('/css/style.css')}}" >
   </head>
   <body>
-    <div class="login">
-        <a href="{{ route('login') }}" >login</a>
+    <div>
+        <a href="{{ route('login') }}" class="btn02" >login</a>
     </div>
     </body>
 </html>

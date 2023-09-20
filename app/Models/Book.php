@@ -57,4 +57,34 @@ class Book extends Model
 
     }
 
+    //インポート
+    public function csvHeader(): array
+    {
+        return [
+            'book_id',
+            'book_name',
+            'book_author',
+            'book_text',
+            'created_at',
+            'updated_at'
+        ];
+    }
+
+    public function getCsvData(): \Illuminate\Support\Collection
+    {
+        $data = DB::table('books')->get();
+        return $data;
+    }
+    public function insertRow($row): array
+    {
+        return [
+            $row->book_id,
+            $row->book_name,
+            $row->book_author,
+            $row->book_text,
+            $row->created_at,
+            $row->updated_at,
+        ];
+    }
+
 }

@@ -37,10 +37,11 @@
               <td><textarea type="text" class="form-text" name="book_text" id="book_text" >{{$book->book_text}}</textarea></td>
             </tr>
           </table>
-          <button type="submit">更新</button>
+          <button type="submit" class="btn02">更新</button>
         </fieldset>
       </form>
-      <a href="{{ route('book.index') }}" role="button">一覧画面へ</a>
+      <br>
+      <a href="{{ route('book.index') }}" role="button" class="btn02">TOPへ</a>
     </div>
   </body>
 </html>

@@ -1,19 +1,83 @@
+html {
+	font-size: 100%;
+  }
+
+body{
+	-webkit-text-size-adjust: 100%;
+	text-align: center;
+	color: black;
+	font-family:"Yu Gothic Medium", "游ゴシック Medium", YuGothic, "游ゴシック体", "ヒラギノ角ゴ Pro W3", "メイリオ", sans-serif;
+	line-height: 1.6;
+	font-weight: 400;
+}
+
+div{
+    padding: 20px 10px;
+
+}
 th, td{
     padding: 10px 20px;
+
+}
+
+hr{
+    border: 2px solid #27acd9;
+    width:50%;
+}
+
+table{
+    margin: auto;
+    border-collapse: collapse;
+}
+
+fieldset{
+    border:none;
+}
+
+.title{
+    padding: 20px 30px;
+	font-weight: bold;
+	color: #27acd9;
+    font-size: 140%;
 }
 
 .btn01 {
-    cursor: default;
-    box-sizing: border-box;
-    background-color: buttonface;
-    writing-mode: horizontal-tb !important;
-    margin: 0em;
-    padding-block: 1px;
-    padding-inline: 6px;
-    border-width: 2px;
-    border-style: outset;
-    border-color: buttonborder;
-    border-image: initial;}
+	padding: 1rem 1rem;
+	font-weight: bold;
+	border: 2px solid #27acd9;
+	background: #27acd9;
+	color: #fff;
+	transition: 0.5s;
+    border-radius:30px;
+}
+
+.btn02{
+	display: block;
+	text-align: center;
+	vertical-align: middle;
+	text-decoration: none;
+	width: 12rem;
+	margin: auto;
+	padding: 1rem 2rem;
+	font-weight: bold;
+	border: 2px solid #27acd9;
+	background: #27acd9;
+	color: #fff;
+	transition: 0.5s;
+    border-radius:30px;
+}
+
+.btn02:hover {
+	color: #27acd9;
+	background: #fff;
+}
+
+.sub-title{	
+    padding: 10px 20px;
+	font-weight: bold;
+	color: #27acd9;
+    font-size: 120%;
+}
 
 .form-name, .form-author{
     width:200px;
@@ -23,11 +87,6 @@ th, td{
     height:100px;
 }
 
-.index-table{
-    border:1px black;
-}
-
-.table_detail{}
 
 .alert-danger{
     color:red;

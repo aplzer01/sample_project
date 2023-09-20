@@ -30,6 +30,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+
 //チュートリアル
 Route::get('/test','App\Http\Controllers\TestController@index');
 
@@ -50,6 +51,8 @@ Route::post('/update/{book_id}',[BookController::class,'update'])->name('book.up
 //１件削除
 Route::post('/delete/{book_id}',[BookController::class,'delete'])->name('book.delete');
 //CSVダウンロード
-Route::get('/downloadCsv',[BookController::class,'downloadCsv'])->name('book.downloadCsv');
+Route::get('/download',[BookController::class,'download'])->name('book.download');
+//CSVインポート
+Route::post('/upload',[BookController::class,'upload'])->name('book.upload');
 
 require __DIR__.'/auth.php';
