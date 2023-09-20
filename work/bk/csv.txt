@@ -1,0 +1,33 @@
+
+    //CSVダウンロード
+    public function downloadCsv()
+    {
+        $books = Book::all();
+        $stream = fopen('C:\xampp\htdocs\sample_project\work\book.csv', 'w');   //ストリームを書き込みモードで開く
+        $arr = array('book_id', 'book_name', 'book_author', 'book_text');           //CSVファイルのカラム（列）名の指定
+        
+        fputcsv($stream, $arr);               //1行目にカラム（列）名のみを書き込む（繰り返し処理には入れない）
+        foreach ($books as $book) {
+            $arrInfo = array(
+                'book_id' => $book->book_id,
+                'book_name' => $book->book_name,
+                'book_author' => $book->book_author,
+                'book_text' => $book->book_text
+            );
+            
+            fputcsv($stream, $arrInfo);       //DBの値を繰り返し書き込む
+        }
+        
+        rewind($stream);                      //ファイルポインタを先頭に戻す
+        $csv = stream_get_contents($stream);  //ストリームを変数に格納
+        $csv = mb_convert_encoding($csv, 'sjis-win', 'UTF-8');   //文字コードを変換
+        
+        fclose($stream);                      //ストリームを閉じる
+        
+        $headers = array(                     //ヘッダー情報を指定する
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename=test.csv'
+        );
+        ddd($csv);
+        return Response::make($csv, 200, $headers);   //ファイルをダウンロードする
+    }

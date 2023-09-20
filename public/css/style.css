@@ -1,0 +1,34 @@
+th, td{
+    padding: 10px 20px;
+}
+
+.btn01 {
+    cursor: default;
+    box-sizing: border-box;
+    background-color: buttonface;
+    writing-mode: horizontal-tb !important;
+    margin: 0em;
+    padding-block: 1px;
+    padding-inline: 6px;
+    border-width: 2px;
+    border-style: outset;
+    border-color: buttonborder;
+    border-image: initial;}
+
+.form-name, .form-author{
+    width:200px;
+}
+.form-text{
+    width:200px;
+    height:100px;
+}
+
+.index-table{
+    border:1px black;
+}
+
+.table_detail{}
+
+.alert-danger{
+    color:red;
+}

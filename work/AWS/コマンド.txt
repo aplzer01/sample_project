@@ -1,0 +1,46 @@
+
+--ルート権限
+sudo -i
+
+--実行済み
+--Apacheのインストール
+yum -y install httpd
+
+service httpd start
+systemctl status httpd
+
+systemctl restart httpd
+
+yum install php
+
+
+
+Composerをインストール
+curl -sS https://getcomposer.org/installer | php
+sudo mv composer.phar /usr/local/bin/composer
+
+
+
+composer create-project --prefer-dist laravel/laravel sample_project
+composer
+
+
+DB インスタンス識別子
+Laravel-test
+マスターユーザー名
+admin
+Laravel-test
+
+
+
+DocumentRoot "/var/www/sample_project/public"
+
+<Directory /var/www/sample_project/public>
+ AllowOverride All
+</Directory>
+
+
+http://52.195.6.30:8000
+
+
+mysql -h laravel-test -P 3306 -u admin -p Laravel-test

@@ -1,0 +1,26 @@
+--PHP Laravel----------------------
+
+php artisan serve
+
+php artisan make:migration create_books_table --create=books
+php artisan migrate
+
+php artisan migrate:rollback
+php artisan make:migration add_type_to_books_table --table=books
+
+php artisan make:controller BookController
+
+php artisan route:list
+
+-----------------------------------
+
+
+http://127.0.0.1:8000/
+
+
+//関数の中身を表示
+ {{ var_dump($book) }}
+ 
+ デバック
+ //ddd($request);
+ 
